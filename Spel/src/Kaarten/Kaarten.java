@@ -1,15 +1,19 @@
 package Kaarten;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Random;
+
 // ToDO Met de arrays oefenen.
 
 public class Kaarten {
-
+    int randomNummer;
+    boolean toonalles;
     /*
         Deze maakt de kaarten set.
     */
-    static void MaakKaartenSet(int randomtype, int randomwaarde, String toonalles) {
+    void MaakKaartenSet() {
+
     /*
         Deze instances maken de kaarten arrays aan.
     */
@@ -30,51 +34,40 @@ public class Kaarten {
         kaarten.add(new Kaart('K'));
         kaarten.add(new Kaart('Ä'));
 
-        if (randomwaarde <= 8) {
-            System.out.println("Dit is uw kaart: "+ kaartType.get(randomtype).type + " " + kaarten.get(randomwaarde).waarde);
+        if (this.toonalles) {
+            for (Kaart type : kaartType) {
+                for (Kaart waarde : kaarten) {
+                    if (waarde.waarde >= 10){
+                        System.out.println(waarde.hogekaarten + type.type);
+                    }
+                    System.out.println(waarde.waarde + type.type);
+                }
+            }
+    } else if(this.randomNummer <= 8) {
+            System.out.println("Dit is uw kaart: "+ kaartType.get(this.randomNummer).type + " " + kaarten.get(this.randomNummer).waarde);
             System.out.println(" ");
-            System.out.println(randomwaarde);
-        } else if (randomwaarde >= 9) {
-            System.out.println("Dit is uw kaart: " + kaartType.get(randomtype).type + " " + kaarten.get(randomwaarde).hogekaarten);
+            System.out.println(this.randomNummer);
+        } else if (this.randomNummer >= 9) {
+            System.out.println("Dit is uw kaart: " + kaartType.get(randomNummer).type + " " + kaarten.get(this.randomNummer).hogekaarten);
             System.out.println(" ");
-            System.out.println(randomwaarde);
+            System.out.println(this.randomNummer);
         }
-
     }
 
     /*
         ToonKaartenSet Kan je de huidige kaarten deck zien of tonen.
     */
     static void ToonKaartenSet() {
-        Random random = new Random();
-        int random1 = random.nextInt(13);
-        int random2 = random.nextInt(3);
-        MaakKaartenSet(random2,random1,"");
+
     }
 
+    /*
+        Deze main zal later als een normale methode gaan functioneren.
+        Om later de uitgedeelde kaarten uit de array te halen zo dat ze niet in een ronde nog een x getrokken kunnen worden.
+     */
     public static void main(String[] args) {
-        ToonKaartenSet();
+        Bank toonKaarten = new Bank();
+        toonKaarten.SchudKaarten();
     }
 }
 
-class Kaart{
-    String type;
-    int waarde;
-    char hogekaarten;
-    Kaart(String type, int waarde) {
-        this.type = type;
-        this.waarde = waarde;
-    }
-
-    Kaart(String type) {
-        this.type = type;
-    }
-
-    Kaart(int waarde) {
-        this.waarde = waarde;
-    }
-
-    Kaart(char hogekaarten) {
-        this.hogekaarten = hogekaarten;
-    }
-}
